@@ -1,5 +1,7 @@
 import express from 'express';
 import { json } from 'body-parser';
+import mongoose from 'mongoose';
+
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
@@ -21,6 +23,18 @@ app.all('*', async (req, res, next) => {
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000');
-});
+const start = async () => {
+  try {
+    await mongoose.connect(`${process.env.DATABASE_URL}`);
+  } catch (err) {
+    console.log(err);
+  }
+
+  console.log('Connected to DB');
+
+  app.listen(3000, () => {
+    console.log('Listening on port 3000');
+  });
+};
+
+start();
