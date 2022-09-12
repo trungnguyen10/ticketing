@@ -18,10 +18,6 @@ spec:
         env:
         - name: DATABASE_URL
           value: 'mongodb://auth-mongo-srv:27017/auth'
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
         ports:
         - containerPort: 3000
 ---
