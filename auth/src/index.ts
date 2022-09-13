@@ -32,6 +32,14 @@ app.all('*', async (req, res, next) => {
 app.use(errorHandler);
 
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY must be defined');
+  }
+
+  if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL must be define');
+  }
+
   try {
     await mongoose.connect(`${process.env.DATABASE_URL}`);
   } catch (err) {
