@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import mongoose from 'mongoose';
@@ -26,7 +27,7 @@ app.use(signoutRouter);
 app.use(signupRouter);
 
 app.all('*', async (req, res, next) => {
-  next(new NotFoundError());
+  throw new NotFoundError();
 });
 
 app.use(errorHandler);
